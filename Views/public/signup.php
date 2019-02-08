@@ -87,14 +87,14 @@
             $register = $user->user_sign_up($new_values);
             if ($register) {
                 // Registration Success
-                echo "<br> Registration successful <br> <a href= '" . $_SERVER["PHP_SELF"] . "?login '> Click Here </a> to Log in <br/>";
+                echo "<br> Registration successfully <br/> <a href= '" . $_SERVER["PHP_SELF"] . "?login '> Click Here </a> to Log in <br/>";
 
                 } else {
                     // Registration Failed
-                    echo "<br> Registration Failed. Username already exists <br/>";
+                    echo "<br> Registration Failed. Please Try again <br/>";
                 }
 
-            echo "Thank you for contacting us <br/>";
+            // echo "Thank you for contacting us <br/>";
             exit();
         }
         else
@@ -114,13 +114,24 @@
     <body>
     <h3> Sign Up </h3>
         <div id="after_submit">
-            
         </div>
+
+        <div class="form-header-group ">
+          <div class="header-text httal htvam">
+            <h2 id="header_293" class="form-header" data-component="header">
+              Employment Application
+            </h2>
+            <div id="subHeader_293" class="form-subHeader">
+              Fill the form below accurately indicating your potentials and suitability to job applying for.
+            </div>
+          </div>
+        </div>
+
         <form id="signup_form" action="#" method="POST" enctype="multipart/form-data">
 
             <!-- USERNAME -->
             <div class="row">
-                <label class="required" for="name">Your UserName:</label><br />
+                <label class="username">UserName:</label><br />
                 <input id="user_name" class="input" name="user_name" type="text" 
                         value="<?php echo (isset($_POST["user_name"]))? $_POST["user_name"]:"" ?>" 
                         size="30" /><br />
@@ -129,7 +140,7 @@
 
             <!-- PASSWORD -->
             <div class="row">
-                <label class="required" for="password">Your Password:</label><br />
+                <label class="password">Password:</label><br />
                 <input id="password" class="input" name="password" type="password" 
                         value="<?php echo (isset($_POST["password"]))? $_POST["password"]:"" ?>" 
                         size="30" /><br />
