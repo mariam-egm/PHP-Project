@@ -9,3 +9,6 @@ git push origin master (kda ramet fel site)
 the other side :
 
 git pull origin master
+
+//FIXME:
+//TODO:
