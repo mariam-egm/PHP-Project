@@ -1,6 +1,6 @@
 <?php
 
-class MYSQL implements DBHandler{
+class MYSQL implements DbHandler{
     private $_db_handler;
     private $_table;
     
@@ -28,36 +28,36 @@ class MYSQL implements DBHandler{
     }
 
     //REGISTRATION PROCCESS
-    // public function reg_user($name,$user_name,$password,$email,$img_input,$cv_input){
-        // $table = $this->_table;
-        // $sql = " SELECT * FROM $table where Username = $user_name ";
 
-        //Check if username already exists in db
-        // $check = mysqli_query($this->_db_handler, $sql);
-        // var_dump($check);
-        //if not in db then insert into table the new one
-        // if($check){
-        //     $sql1 = " INSERT INTO $table VALUES ('1','$user_name','$password','$name','$email','$img_input','$cv_input','True') ";
-        //     // $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot be inserted");
-        //     // return $result;
+    public function user_sign_up($new_values){
+        if(is_array($new_values)){
+            $table = $this->_table;
+            foreach($new_values as $key => $value){
+                if($key == 'Username'){
+                    $sql = " select * from `$table` where Username = '$value' ";
+                    // Check if username already exists in db
+                    $_handler_results = mysqli_query($this->_db_handler, $sql);
+                    var_dump($_handler_results);
 
-        //     $_handler_result = mysqli_query($this->_db_handler,$sql1);
-        //     if($_handler_result){
-        //         return true;
-        //     }
-        //     else{
-        //         echo "Data cannot be inserted <br/>";
-        //         // die(mysqli_connect_errno()."Data cannot be inserted");
-        //         return false;
-        //     }
-        // }
-        // else {
-        //     echo "User already exists. Please Log in. <br>";
-        //     return false;
-        // }
-    // }
+                    $rowcount=mysqli_num_rows($result);
+                    // if not in db then insert into table the new one
+                    if($rowcount == 0){
+                        $insert_user = insert_new_user($new_values);
+                        if($insert_user){
+                            return true;
+                        }else{
+                            return false;
+                        }
+                    }else{
+                        return false;
+                    }
+                }
+            }
+        }
+    }
 
-    public function insert_user($new_values){
+    public function insert_new_user($new_values){
+        echo "<br> here is insert fn <br>";
         if(is_array($new_values)){
             $table = $this->_table;
             $sql1 = "Insert into $table (";
@@ -71,13 +71,6 @@ class MYSQL implements DBHandler{
             $sql1 = str_replace( ",)" , ") " , $sql1);
             $sql2 = str_replace( ",)" , ")" , $sql2);
             $sql = $sql1.$sql2;
-            // var_dump($new_values);
-
-            // if (__Debug__Mode__ === 1)
-            // {
-            //     echo "hii";
-            //     echo "<h5>Sent Query: </h5>" . $sql . "<br/> <br/>";
-            // }
 
             $_handler_results = mysqli_query($this->_db_handler, $sql);
 
@@ -95,34 +88,36 @@ class MYSQL implements DBHandler{
 
 
     //LOGIN PROCESS
-    public function check_login($user_name,$password){
-        $sql2 = " SELECT ID FROM member WHERE Username = '$user_name' ";
-        
-        //Check if username already exists in db
-        $result = mysqli_query($this->_db,$sql2);
-        $user_data = mysqli_fetch_array($result);
-        $count_row = $result->num_rows;
+    public function check_login($new_values){
+        $table = $this->_table;
+        foreach ($new_values as $key => $value){
+                if($key == "Username"){
+                $sql = " select * from `$table` where Username = '$value' ";
 
-        if($count_row == 1){
-            // this login var will use for the session thing
-            $_SESSION["login"] = true;
-            $_SESSION["ID"] = $user_data["ID"];
-            return true;
+                $_handler_results = mysqli_query($this->_db_handler,$sql);
+                $_arr_results = array();
+       
+                if ($_handler_results ) {
+                    // echo "handlers is okay!";
+                    while($row = mysqli_fetch_array($_handler_results ,MYSQLI_ASSOC)){
+                        
+                        $_arr_results[] = array_change_key_case($row);
+                        // var_dump($_arr_results);
+                    }
+                    return $_arr_results;
+                }else{
+                    return false;
+                }
+            }
         }
-
-        else{
-            return false;
-        }
     }
+    // /*** starting the session ***/
+    // public function get_session(){
+    //     return $_SESSION["login"] = TRUE;
+    // }
 
-    /*** starting the session ***/
-    public function get_session(){
-        return $_SESSION["login"] = TRUE;
-    }
-
-    public function user_logout() {
-        $_SESSION["login"] = FALSE;
-        session_destroy();
-    }
-    
+    // public function user_logout() {
+    //     $_SESSION["login"] = FALSE;
+    //     session_destroy();
+    // } 
 }
