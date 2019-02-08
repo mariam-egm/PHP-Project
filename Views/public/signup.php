@@ -84,14 +84,14 @@
                 "CV" => $_FILES["cv"]["name"]
             );
             // var_dump($_FILES["cv"]);
-            $register = $user->insert_user($new_values);
+            $register = $user->user_sign_up($new_values);
             if ($register) {
                 // Registration Success
-                echo "Registration successful <a href= '" . $_SERVER["PHP_SELF"] . "?login '> Click Here </a> to login";
+                echo "<br> Registration successful <br> <a href= '" . $_SERVER["PHP_SELF"] . "?login '> Click Here </a> to Log in <br/>";
 
                 } else {
                     // Registration Failed
-                    echo "Registration failed. Email or Username already exists please try again <br/>";
+                    echo "<br> Registration Failed. Username already exists <br/>";
                 }
 
             echo "Thank you for contacting us <br/>";
