@@ -42,7 +42,7 @@ class MYSQLHanndler implements DBHandler{
         if(__DEBUG_MODE__ === 1){
             echo "<h3> Sent Query: </h3>".$sql."<br/>";
         }
-        $_handler_results = mysqli_query($this -> _db_handler, $sql);
+        $_handler_results = mysqli_query($this->_db_handler, $sql);
         $arr_results = array();
         if($_handler_results){
             while($row = mysqli_fetch_array($_handler_results,MYSQLI_ASSOC)){

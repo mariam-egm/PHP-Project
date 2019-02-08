@@ -27,35 +27,43 @@ class MYSQL implements DbHandler{
         }
     }
 
-    //REGISTRATION PROCCESS
-
+    ////////////////////////////////////////////////////REGISTRATION PROCCESS/////////////////////////////////////////////////////////////
     public function user_sign_up($new_values){
         if(is_array($new_values)){
             $table = $this->_table;
             foreach($new_values as $key => $value){
-                if($key == 'Username'){
+                if($key == "Username"){
                     $sql = " select * from `$table` where Username = '$value' ";
-                    // Check if username already exists in db
                     $_handler_results = mysqli_query($this->_db_handler, $sql);
-                    var_dump($_handler_results);
+                    if($_handler_results){
+                        var_dump($_handler_results);
 
-                    $rowcount=mysqli_num_rows($result);
-                    // if not in db then insert into table the new one
-                    if($rowcount == 0){
-                        $insert_user = insert_new_user($new_values);
-                        if($insert_user){
-                            return true;
-                        }else{
-                            return false;
+                        $arr_results = array();
+
+                        if($_handler_results){
+                            while($row = mysqli_fetch_array($_handler_results,MYSQLI_ASSOC)){
+                                $arr_results[] = array_change_key_case($row);
+                            }
+                            var_dump($arr_results);
+
+                            if(sizeof($arr_results) == 0){
+                                $new_user = $this->insert_new_user($new_values);
+                                if($new_user){
+                                    $this->disconnect();
+                                    return true;
+                                }else{
+                                    echo "<br> User already Exists <br>";
+                                    $this->disconnect();
+                                    return false;
+                                }
+                            }
                         }
-                    }else{
-                        return false;
                     }
                 }
             }
         }
     }
-
+//////////////////////////////////////////////////INSERTION FUNCTION//////////////////////////////////////////////////////
     public function insert_new_user($new_values){
         echo "<br> here is insert fn <br>";
         if(is_array($new_values)){
@@ -77,17 +85,16 @@ class MYSQL implements DbHandler{
             if($this->_db_handler->query($sql) == True){
                 echo "the query was right <br>";
                 return true;    
-                // $this->disconnect();
+                $this->disconnect();
             }else{
-                // $this->disconnect();
+                $this->disconnect();
                 echo "la2 :) <br>" ;
                 return false;
             }
         }
     }
 
-
-    //LOGIN PROCESS
+    ////////////////////////////////////////////////////LOGIN PROCESS/////////////////////////////////////////////////////////////
     public function check_login($new_values){
         $table = $this->_table;
         foreach ($new_values as $key => $value){
@@ -98,11 +105,9 @@ class MYSQL implements DbHandler{
                 $_arr_results = array();
        
                 if ($_handler_results ) {
-                    // echo "handlers is okay!";
                     while($row = mysqli_fetch_array($_handler_results ,MYSQLI_ASSOC)){
                         
                         $_arr_results[] = array_change_key_case($row);
-                        // var_dump($_arr_results);
                     }
                     return $_arr_results;
                 }else{
@@ -110,14 +115,5 @@ class MYSQL implements DbHandler{
                 }
             }
         }
-    }
-    // /*** starting the session ***/
-    // public function get_session(){
-    //     return $_SESSION["login"] = TRUE;
-    // }
-
-    // public function user_logout() {
-    //     $_SESSION["login"] = FALSE;
-    //     session_destroy();
-    // } 
+    } 
 }
