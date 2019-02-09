@@ -1,26 +1,79 @@
 .form-header-group .form-header, .form-header-group .form-subHeader {
-    color: #ffffff;
+    color: black;
+    margin: 30px 350px;
 }
-h2.form-header {
-    line-height: 1.618em;
-    font-size: 1.714em;
+.headerimg{
+    align-content: center;
+    margin: 0px 350px;
 }
 h2 {
     display: block;
     font-size: 1.5em;
     margin-block-start: 0.83em;
     margin-block-end: 0.83em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
     font-weight: bold;
 }
 
-.username, .password{
+.bigdiv{
+
+}
+.formdiv{
+    margin: 0px 350px;
+
+}
+
+.username, .password, .name, .email, .job, .img, .cv{
     width: 34%;
     float: left;
     text-align: left;
     font-family: "PT Sans Narrow", sans-serif;
     color: #474747;
     font-weight: bold;
+}
+
+.row{
+    padding: 8px 36px;
+    margin: 10px 10px;
+    width: 100%;
+    position: relative;
+    clear: both;
+}
+
+.sub-label{
+    font-size: 12px;
+    min-height:13px;
+    color: darkgrey;
+    padding: 8px;
+    display: inherit;
+}
+.btn{
+    width: 200px;
+    height: 80px;
+    margin: 0px 350px;
+    overflow: hidden;  
+    box-shadow: inset 0px 1px 0px 0px #ffcc7a;      
+    border: 1px solid rgb(106, 106, 206);
+    border-radius: 10px;
+}
+.submitbtn{
+    clear: both;
+    display: block;
+    position: relative;
+    width: 200px;
+    height: 80px;
+}
+.loginbtn{
+    clear: both;
+    display: block;
+    position: relative;
+    width: 200px;
+    height: 80px;
+}
+.signupbtn{
+    clear: both;
+    display: block;
+    position: relative;
+    width: 200px;
+    height: 80px;
 }
 

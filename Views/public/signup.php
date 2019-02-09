@@ -111,92 +111,110 @@
 ?>
 
 <html>
-    <body>
-    <h3> Sign Up </h3>
-        <div id="after_submit">
-        </div>
+
+<head>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div id="after_submit">
+    </div>
+
+    <div class="bigdiv">
+
+        <img src="./images/headerimg.png" class="headerimg" />
 
         <div class="form-header-group ">
-          <div class="header-text httal htvam">
-            <h2 id="header_293" class="form-header" data-component="header">
-              Employment Application
-            </h2>
-            <div id="subHeader_293" class="form-subHeader">
-              Fill the form below accurately indicating your potentials and suitability to job applying for.
+            <div class="header-text httal htvam">
+                <h2 id="header_293" class="form-header" data-component="header">
+                    Employment Application
+                </h2>
+                <div id="subHeader_293" class="form-subHeader">
+                    Fill the form below accurately indicating your potentials and suitability to job applying for.
+                </div>
             </div>
-          </div>
         </div>
 
-        <form id="signup_form" action="#" method="POST" enctype="multipart/form-data">
+        <div class="formdiv">
+            <form id="signup_form" action="#" method="POST" enctype="multipart/form-data">
 
-            <!-- USERNAME -->
-            <div class="row">
-                <label class="username">UserName:</label><br />
-                <input id="user_name" class="input" name="user_name" type="text" 
-                        value="<?php echo (isset($_POST["user_name"]))? $_POST["user_name"]:"" ?>" 
-                        size="30" /><br />
+                <!-- USERNAME -->
+                <div class="row">
+                    <label class="username">UserName:</label><br />
+                    <input id="user_name" class="input" name="user_name" type="text" value="<?php echo (isset($_POST["
+                        user_name"]))? $_POST["user_name"]:"" ?>"
+                    size="30" /><br />
 
-            </div>
+                </div>
 
-            <!-- PASSWORD -->
-            <div class="row">
-                <label class="password">Password:</label><br />
-                <input id="password" class="input" name="password" type="password" 
-                        value="<?php echo (isset($_POST["password"]))? $_POST["password"]:"" ?>" 
-                        size="30" /><br />
+                <!-- PASSWORD -->
+                <div class="row">
+                    <label class="password">Password:</label><br />
 
-            </div>
+                    <input id="password" class="input" name="password" type="password" value="<?php echo (isset($_POST["
+                        password"]))? $_POST["password"]:"" ?>"
+                    size="30" /><br />
+                    <label class="sub-label">
+                        Password must be between 8 and 16 characters
+                    </label>
 
-
-            <!-- NAME -->
-            <div class="row">
-                <label class="required" for="name">Your Full Name:</label><br />
-                <input id="name" class="input" name="name" type="text" 
-                        value=" <?php echo (isset($_POST["name"]))? $_POST["name"]:"" ?> "
-                        size="30" /><br />
-
-            </div>
-
-            <!-- EMAIL -->
-
-            <div class="row">
-                <label class="required" for="email">Your Email:</label><br />
-                <input id="email" class="input" name="email" type="text" 
-                        value="<?php echo (isset($_POST["email"]))? $_POST["email"]:"" ?>"
-                         size="30" /><br />
-            </div>
-
-            <!-- JOB -->
-            <div class="row">
-                <label class="required" for="job">Your Job:</label><br />
-                <input id="job" class="input" name="job" type="text" 
-                        value=" <?php echo (isset($_POST["job"]))? $_POST["job"]:"" ?> "
-                        size="30" /><br />
-
-            </div>
-
-            <!-- IMAGE -->
-            <div class="row">
-                <label class="required" for="img">Your Image:</label><br />
-                <input type="file" class="img" name="img">
-       
-            </div>
+                </div>
 
 
-            <!-- cv -->
-            <div class="row">
-                <label class="required" for="img">Your CV:</label><br />
-                <input type="file" class="cv" name="cv">
-       
-            </div>
+                <!-- NAME -->
+                <div class="row">
+                    <label class="name">Your Full Name:</label><br />
+                    <input id="name" class="input" name="name" type="text" value=" <?php echo (isset($_POST[" name"]))?
+                        $_POST["name"]:"" ?> "
+                    size="30" /><br />
 
-            <input id="submit" name="submit" type="submit" value="Submit" />
-            
-        </form>
+                </div>
 
-    </body>
+                <!-- EMAIL -->
+
+                <div class="row">
+                    <label class="email">Your Email:</label><br />
+                    <input id="email" class="input" name="email" type="text" value="<?php echo (isset($_POST["
+                        email"]))? $_POST["email"]:"" ?>"
+                    size="30" /><br />
+                </div>
+
+                <!-- JOB -->
+                <div class="row">
+                    <label class="job">Your Job:</label><br />
+                    <input id="job" class="input" name="job" type="text" value=" <?php echo (isset($_POST[" job"]))?
+                        $_POST["job"]:"" ?> "
+                    size="30" /><br />
+
+                </div>
+
+                <!-- IMAGE -->
+                <div class="row">
+                    <label class="img">Upload your Image:</label><br />
+                    <input type="file" class="img" name="img"><br />
+                    <label class="sub-label">
+                        Attached image file must be PNG file.
+                    </label>
+                </div>
+
+                <!-- CV -->
+                <div class="row">
+                    <label class="cv">Upload your CV:</label><br />
+                    <input type="file" class="cv" name="cv"><br />
+                    <label class="sub-label">
+                        Attached file must be PDF file.
+                    </label>
+                    <br /><br />
+                </div>
+
+                <div class="btn">
+                    <input class="submitbtn" name="submit" type="image" src="./images/submitbtn.png" />
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+</body>
+
 </html>
-
-
-
-
