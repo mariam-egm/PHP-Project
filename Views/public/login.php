@@ -3,7 +3,8 @@ $error = array();
 if(isset($_POST['submit'])){
     // extract($_REQUEST);
     //User name check
-    if(strlen($_POST["user_name"])> $max_user_name || strlen($_POST["user_name"])==0)
+    // echo "submit if";
+    if(strlen($_POST["user_name"])> __MAX__NAME__ || strlen($_POST["user_name"])==0)
     {
         $error[] = "Invalid User Name";           
     }
@@ -14,19 +15,27 @@ if(isset($_POST['submit'])){
        strlen($_POST["password"]) == 0)
     {
         $error[] = "Invalid password. It should be between 8 and 16 characters";            
+        // echo "mogefrvr";
     }
-
+    var_dump($error);
     if(sizeof($error) == 0)
     {
+        
         $new_values = array(
             "Username" => $_POST["user_name"],
             "Password" => $_POST["password"]
         );
         $login = $user->check_login($new_values);
         if ($login) {
-            // RLogin Success
-            // header("location:home.php");
             echo "Successfully logged in";
+            // session_start();
+            // echo "from login page this is the return from get user id <br>";
+            // var_dump($user->get_user_id($_POST["user_name"]));
+            $_SESSION["user_id"] = $user->get_user_id($_POST["user_name"]);
+            $_SESSION["is_admin"]= $user->is_admin($user->get_user_id($_POST["user_name"]));
+            // var_dump($_SESSION);
+            echo "hello login";
+            // echo $_SESSION["is_admin"];
         } else {
             // Login Failed
             echo "Wrong username or password <br/> If you're not a member, Please Sign Up";
@@ -45,7 +54,7 @@ if(isset($_POST['submit'])){
         <div id="after_submit">
             
         </div>
-        <form id="login_form" action="#" method="POST" enctype="multipart/form-data">
+        <form id="login_form" method="POST" enctype="multipart/form-data">
 
             <div class="row">
                 <label class="required" for="user_name">Username</label><br/>

@@ -1,6 +1,6 @@
 <?php
 
-class MYSQL implements DbHandler{
+class MYSQL implements DBHandler{
     private $_db_handler;
     private $_table;
     
@@ -57,7 +57,6 @@ class MYSQL implements DbHandler{
     }
 
     public function insert_new_user($new_values){
-        echo "<br> here is insert fn <br>";
         if(is_array($new_values)){
             $table = $this->_table;
             $sql1 = "Insert into $table (";
@@ -86,23 +85,41 @@ class MYSQL implements DbHandler{
         }
     }
 
+    public function get_user_id($user_name)
+    {
+        $table = $this->_table;
+        $sql = " select ID from `$table` where Username = 'mariam' ";
+        $_handler_results = mysqli_query($this->_db_handler,$sql);
+        $_arr_results = array();
+
+
+        if ($_handler_results ) {
+            while($row = mysqli_fetch_array($_handler_results ,MYSQLI_ASSOC))
+            {    
+                $_arr_results[] = array_change_key_case($row);
+            }
+            return $_arr_results[0]["id"];
+        }else{
+            return false;
+        }
+    }
 
     //LOGIN PROCESS
     public function check_login($new_values){
         $table = $this->_table;
-        foreach ($new_values as $key => $value){
-                if($key == "Username"){
+        foreach ($new_values as $key => $value)
+        {
+            if($key == "Username")
+            {
                 $sql = " select * from `$table` where Username = '$value' ";
 
                 $_handler_results = mysqli_query($this->_db_handler,$sql);
                 $_arr_results = array();
-       
+    
                 if ($_handler_results ) {
-                    // echo "handlers is okay!";
-                    while($row = mysqli_fetch_array($_handler_results ,MYSQLI_ASSOC)){
-                        
+                    while($row = mysqli_fetch_array($_handler_results ,MYSQLI_ASSOC))
+                    {    
                         $_arr_results[] = array_change_key_case($row);
-                        // var_dump($_arr_results);
                     }
                     return $_arr_results;
                 }else{
@@ -111,6 +128,32 @@ class MYSQL implements DbHandler{
             }
         }
     }
+
+
+    public function is_admin($user_id)
+    {
+        $table = $this->_table;
+        $sql = " select is_Admin from `$table` where ID = '$user_id' ";
+        $_handler_results = mysqli_query($this->_db_handler,$sql);
+        $_arr_results = array();
+
+        if ($_handler_results) {
+            while($row = mysqli_fetch_array($_handler_results ,MYSQLI_ASSOC))
+            {    
+                $_arr_results[] = array_change_key_case($row);
+            }
+            // var_dump("from the function",$_arr_results[0]["is_admin"]);
+            if($_arr_results[0]["is_admin"]==NULL)
+            {
+                return False;
+            }else{
+                return True;
+            }
+
+        }
+    }
+
+
     // /*** starting the session ***/
     // public function get_session(){
     //     return $_SESSION["login"] = TRUE;
@@ -120,4 +163,35 @@ class MYSQL implements DbHandler{
     //     $_SESSION["login"] = FALSE;
     //     session_destroy();
     // } 
+
+    public function get_record($id) {
+        $table = $this->_table;
+        $sql = "select * from `$table` limit ID = $id";
+        return $this->get_results($sql);
+    }
+    private function get_results($sql) {
+        if (__Debug__Mode__ === 1)
+            echo "<h5>Sent Query: </h5>" . $sql . "<br/> <br/>";
+        $_handler_results = mysqli_query($this->_db_handler, $sql);
+        $_arr_results = array();
+       
+        if ($_handler_results ) {
+             while($row = mysqli_fetch_array($_handler_results ,MYSQLI_ASSOC)){
+                $_arr_results[] = array_change_key_case($row);
+            }
+            return $_arr_results;
+            
+        } else {
+            return false;
+        }
+    }
+
+
 }
+
+
+
+
+
+
+
