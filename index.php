@@ -14,12 +14,12 @@ $user = new MySQL("member");
 if (isset($_SESSION["user_id"]) && isset($_SESSION["is_admin"]) && $_SESSION["is_admin"]== true) {
     // 
     //admin views should be required here
-    echo " if condition one";
-    var_dump($_SESSION);
+    // echo " if condition one";
+    // var_dump($_SESSION);
     // require_once("Views/member/view_my_profile.php");
 } elseif (isset($_SESSION["user_id"]) && isset($_SESSION["is_admin"])) {
     //members views should be required here
-    echo "if condition two";
+    // echo "if condition two";
     require_once("Views/member/view_my_profile.php");
 } else {
     //public views should be required here

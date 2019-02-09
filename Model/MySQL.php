@@ -174,7 +174,7 @@ class MYSQL implements DBHandler{
 
     public function get_record($id) {
         $table = $this->_table;
-        $sql = "select * from `$table` limit ID = $id";
+        $sql = "select * from `$table` where ID = $id";
         return $this->get_results($sql);
     }
     private function get_results($sql) {

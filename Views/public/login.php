@@ -3,7 +3,7 @@ $error = array();
 if(isset($_POST['submit'])){
     // extract($_REQUEST);
     //User name check
-    // echo "submit if";
+    echo "submit if";
     if(strlen($_POST["user_name"])> __MAX__NAME__ || strlen($_POST["user_name"])==0)
     {
         $error[] = "<script type='text/javascript'> alert('Invalid User Name'); </script>";           
@@ -27,16 +27,9 @@ if(isset($_POST['submit'])){
         $login = $user->check_login($new_values);
         if ($login) {
             echo "Successfully logged in";
-            // session_start();
-            // echo "from login page this is the return from get user id <br>";
-            // var_dump($user->get_user_id($_POST["user_name"]));
             $_SESSION["user_id"] = $user->get_user_id($_POST["user_name"]);
             $_SESSION["is_admin"]= $user->is_admin($user->get_user_id($_POST["user_name"]));
-            // var_dump($_SESSION);
             echo "hello login";
-            // echo $_SESSION["is_admin"];
-            // RLogin Success
-            // header("location:home.php");
             echo "<script 'text/javascript'> 
             alert(\"Successfully logged in\"); 
             </script>";
@@ -74,7 +67,7 @@ if(isset($_POST['submit'])){
         </div>
 
         <div class="formdiv">
-            <form id="login_form" action="#" method="POST" enctype="multipart/form-data">
+            <form id="login_form" method="POST" enctype="multipart/form-data">
 
                 <div class="row">
                     <label class="username">Username</label><br />
@@ -89,14 +82,14 @@ if(isset($_POST['submit'])){
                 </div>
 
                 <div class="btn">
-                    <input class="loginbtn" name="submit" type="image" src="./images/login.jpg" /><br/>
+                    <input class="loginbtn" name="submit" type="image" src="../images/login.jpg" /><br/>
                 </div>
                 <br/>
             </form>
             <div class="btn">
             <?php 
             echo "<a href= '" . $_SERVER["PHP_SELF"] . "?signup '> 
-            <img  class ='signupbtn' src='./images/registerbtn.png' </a>";
+            <img  class ='signupbtn' src='../images/registerbtn.png' </a>";
             ?>
             </div>
         </div>
