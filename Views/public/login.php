@@ -5,7 +5,7 @@ if(isset($_POST['submit'])){
     //User name check
     if(strlen($_POST["user_name"])> $max_user_name || strlen($_POST["user_name"])==0)
     {
-        $error[] = "Invalid User Name";           
+        $error[] = "<script type='text/javascript'> alert('Invalid User Name'); </script>";           
     }
 
     // password check
@@ -13,7 +13,7 @@ if(isset($_POST['submit'])){
        strlen($_POST["password"]) < $min_password ||
        strlen($_POST["password"]) == 0)
     {
-        $error[] = "Invalid password. It should be between 8 and 16 characters";            
+        $error[] = "<script type='text/javascript'> alert(\"Invalid password. It should be between 8 and 16 characters\"); </script>";            
     }
 
     if(sizeof($error) == 0)
@@ -26,10 +26,12 @@ if(isset($_POST['submit'])){
         if ($login) {
             // RLogin Success
             // header("location:home.php");
-            echo "Successfully logged in";
+            echo "<script 'text/javascript'> 
+            alert(\"Successfully logged in\"); 
+            </script>";
         } else {
             // Login Failed
-            echo "Wrong username or password <br/> If you're not a member, Please Sign Up";
+            echo "<script type='text/javascript'> alert(\"Wrong username or password <br/> If you're not a member, Please Sign Up\"); </script>";
         }
     }
 }
@@ -55,7 +57,7 @@ if(isset($_POST['submit'])){
                     Employment Application
                 </h2>
                 <div id="subHeader_293" class="form-subHeader">
-                    Fill the form below accurately indicating your potentials and suitability to job applying for.
+                    If you're not a member Please Register.
                 </div>
             </div>
         </div>
