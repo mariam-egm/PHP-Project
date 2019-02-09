@@ -91,7 +91,7 @@
 
                 } else {
                     // Registration Failed
-                    echo "<br> Registration Failed. Please Try again <br/>";
+                    echo "<script type='text/javascript'> alert(\"Registration Failed. Please Try again\"); </script>";
                 }
 
             // echo "Thank you for contacting us <br/>";
@@ -101,7 +101,9 @@
         {
             foreach($error as $val)
             {
-                echo "$val <br>";
+                // echo "<script type='text/javascript'> alert ('$val'); </script> <br/>";
+                // echo "<script type='text/javascript'> alert(\"$val\"); </script> <br/>";
+                alert("$val");
             }
         }
 
@@ -140,7 +142,7 @@
 
                 <!-- USERNAME -->
                 <div class="row">
-                    <label class="username">UserName:</label><br />
+                    <label class="username">User Name:</label><br />
                     <input id="user_name" class="input" name="user_name" type="text" value="<?php echo (isset($_POST["
                         user_name"]))? $_POST["user_name"]:"" ?>"
                     size="30" /><br />

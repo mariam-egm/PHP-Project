@@ -1,6 +1,7 @@
 .form-header-group .form-header, .form-header-group .form-subHeader {
     color: black;
     margin: 30px 350px;
+    border-bottom: 0.5px solid grey;
 }
 .headerimg{
     align-content: center;
