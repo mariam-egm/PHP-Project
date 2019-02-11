@@ -4,51 +4,56 @@
     if(isset($_POST["submit"]))
     {
         //User name check
-        if(strlen($_POST["user_name"])> $max_user_name || strlen($_POST["user_name"])==0)
+        if(strlen($_POST["user_name"])> __MAX__USER__NAME__ || strlen($_POST["user_name"])==0)
         {
-            $error[] = "Invalid User Name";           
+            $error[] = "Invalid User Name. <br/>";           
         }
 
         // password check
-        if(strlen($_POST["password"])>$max_password ||
-           strlen($_POST["password"])<$min_password ||
-           strlen($_POST["password"])==0)
+        if(strlen($_POST["password"]) > __MAX__PASSWORD__ ||
+           strlen($_POST["password"]) < __MIN__PASSWORD__ ||
+           strlen($_POST["password"]) == 0)
         {
-            $error[] = "Invalid password. It should be between 8 and 16 characters";            
+            $error[] = "Invalid password. It should be between 8 and 16 characters. <br/>";            
         }
 
         //name check
-        if(strlen($_POST["name"]) > $max_name ||strlen($_POST["name"])==0 )
+        if(strlen($_POST["name"]) > __MAX__NAME__ || strlen($_POST["name"]) == 0 )
         {
-            $error[] = "Invalid name";           
+            $error[] = "Invalid name. <br/>";           
         }
 
         //email
         if(!filter_var($_POST["email"],FILTER_VALIDATE_EMAIL) || strlen($_POST["email"])==0)
         {
-            $error[] = "Invalid email";
+            $error[] = "Invalid email. <br/>";
         }
 
         //Job check
         if(strlen($_POST["job"])==0)
         {
-            $error[] = "Please Enter a Job";
+            $error[] = "Please Enter a Job. <br/>";
         }
         //Img check
         if (! file_exists($_FILES["img"]["tmp_name"])) 
         {
-            $error[] = "Please Enter an Image";
+            $error[] = "Please Enter an Image. <br/>";
         }
         else{
             // Get image file extension
             $file_extension = pathinfo($_FILES["img"]["name"], PATHINFO_EXTENSION);
-            if(!($file_extension === $allowed_image_extension))
+            if(!($file_extension === __IMG___EXTENSION__ ))
             {
-                $error[] = "Invalid extension, only jpg allowed";
+                $error[] = "Invalid extension, only jpg allowed. <br/>";
             }
             if(($_FILES["img"]["size"]) > 1000000)
             {
-                $error[] = "Image size exceeded 1M";
+                $error[] = "Image size exceeded 1M. <br/>";
+                
+            }
+            if($_FILES["img"]["name"] != ($_POST["user_name"].".".$file_extension))
+            {
+                $error[] = "Invalid image name. <br/>";
                 
             }
         }
@@ -56,18 +61,23 @@
         //CV check
         if (! file_exists($_FILES["cv"]["tmp_name"])) 
         {
-            $error[] = "Please Enter your CV/Resume";
+            $error[] = "Please Enter your CV/Resume. <br/>";
         }
         else{
             // Get CV file extension
             $file_extension = pathinfo($_FILES["cv"]["name"], PATHINFO_EXTENSION);
-            if(!($file_extension === $allowed_file_extension))
+            if(!($file_extension === __FILE__EXTENSION__ ))
             {
-                $error[] = "Invalid extension, only PDF allowed";
+                $error[] = "Invalid extension, only PDF allowed. <br/>";
             }
             if(($_FILES["cv"]["size"]) > 1000000)
             {
-                $error[] = "File size exceeded 1M";
+                $error[] = "File size exceeded 1M. <br/>";
+                
+            }
+            if($_FILES["cv"]["name"] != ($_POST["user_name"].".".$file_extension))
+            {
+                $error[] = "Invalid CV name. <br/>";
                 
             }
         }
@@ -75,11 +85,18 @@
 
         if(sizeof($error)==0)
         {
+            var_dump($_FILES["img"]["tmp_name"]);
+            $img_check = move_uploaded_file($_FILES["img"]["tmp_name"],"profile_pictures/".$_FILES["img"]["name"]);
+            
+            var_dump($_FILES["cv"]["tmp_name"]);
+            $cv_check = move_uploaded_file($_FILES["cv"]["tmp_name"],"cvs/".$_FILES["cv"]["name"]);
+
             $new_values = array(
                 "Username" => $_POST["user_name"],
-                "Password" => $_POST["password"],
+                "Password" => password_hash(trim($_POST["password"]), PASSWORD_DEFAULT),
                 "Name" => $_POST["name"],
                 "Email" => $_POST["email"],
+                "Job" => $_POST["job"],
                 "Image" => $_FILES["img"]["name"],
                 "CV" => $_FILES["cv"]["name"]
             );
@@ -87,29 +104,24 @@
             $register = $user->user_sign_up($new_values);
             if ($register) {
                 // Registration Success
-                echo "<br> Registration successfully <br/> <a href= '" . $_SERVER["PHP_SELF"] . "?login '> Click Here </a> to Log in <br/>";
+                echo "Registration has been done successfully
+                <a href= '" . $_SERVER["PHP_SELF"] . "?login '> Click Here </a> to Log in <br/>";
 
-                } else {
+                }else {
                     // Registration Failed
-                    echo "<script type='text/javascript'> alert(\"Registration Failed. Please Try again\"); </script>";
+                    echo "Registration Failed. Please Try again";
                 }
-
-            // echo "Thank you for contacting us <br/>";
-            exit();
+            header("Location: http://localhost/PHP-Project/");
+            
         }
-        else
-        {
-            foreach($error as $val)
-            {
-                // echo "<script type='text/javascript'> alert ('$val'); </script> <br/>";
-                // echo "<script type='text/javascript'> alert(\"$val\"); </script> <br/>";
-                alert("$val");
-            }
-        }
-
+        // else
+        // {
+        //     foreach($error as $val)
+        //     {
+        //         echo "<script type='text/javascript'> alert ('$val'); </script> <br/>";
+        //     }
+        // }
     }
-
-
 ?>
 
 <html>
@@ -136,9 +148,21 @@
                 </div>
             </div>
         </div>
+        <div class="errors">
+            <?php
 
+                if(sizeof($error) != 0)
+                {
+                    foreach($error as $val)
+                    {
+                        echo $val;
+                    }
+                }
+
+            ?>
+        </div>
         <div class="formdiv">
-            <form id="signup_form" action="#" method="POST" enctype="multipart/form-data">
+            <form id="signup_form" method="POST" enctype="multipart/form-data">
 
                 <!-- USERNAME -->
                 <div class="row">
@@ -162,14 +186,11 @@
 
                 </div>
 
-
                 <!-- NAME -->
                 <div class="row">
                     <label class="name">Your Full Name:</label><br />
-                    <input id="name" class="input" name="name" type="text" value=" <?php echo (isset($_POST[" name"]))?
-                        $_POST["name"]:"" ?> "
-                    size="30" /><br />
-
+                    <input type="text" id="name" class="input" name="name" value="<?php echo (isset($_POST[" name"]))?
+                        $_POST["name"]:"" ?>" >
                 </div>
 
                 <!-- EMAIL -->
@@ -184,10 +205,8 @@
                 <!-- JOB -->
                 <div class="row">
                     <label class="job">Your Job:</label><br />
-                    <input id="job" class="input" name="job" type="text" value=" <?php echo (isset($_POST[" job"]))?
-                        $_POST["job"]:"" ?> "
-                    size="30" /><br />
-
+                    <input type="text" id="job" class="input" name="job" 
+                    value="<?php echo (isset($_POST["job"]))? $_POST["job"]:"" ?>" />
                 </div>
 
                 <!-- IMAGE -->
@@ -195,7 +214,8 @@
                     <label class="img">Upload your Image:</label><br />
                     <input type="file" class="img" name="img"><br />
                     <label class="sub-label">
-                        Attached image file must be PNG file.
+                        Attached file name must be the same as your USERNAME and extension JPG file. Max File size is
+                        1MB.
                     </label>
                 </div>
 
@@ -204,13 +224,13 @@
                     <label class="cv">Upload your CV:</label><br />
                     <input type="file" class="cv" name="cv"><br />
                     <label class="sub-label">
-                        Attached file must be PDF file.
+                        Attached file name must be the same as your USERNAME and PDF file. Max File size is 1MB.
                     </label>
                     <br /><br />
                 </div>
 
                 <div class="btn">
-                    <input class="submitbtn" name="submit" type="image" src="./images/submitbtn.png" />
+                    <input class="submitbtn" name="submit" type="submit" value="Submit" />
                 </div>
 
             </form>

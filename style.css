@@ -1,12 +1,14 @@
-.form-header-group .form-header, .form-header-group .form-subHeader {
+.form-header-group .form-header, .form-header-group .form-subHeader{
     color: black;
-    margin: 30px 350px;
+    margin: 30px 300px;
     border-bottom: 0.5px solid grey;
 }
+
 .headerimg{
     align-content: center;
     margin: 0px 350px;
 }
+
 h2 {
     display: block;
     font-size: 1.5em;
@@ -15,9 +17,6 @@ h2 {
     font-weight: bold;
 }
 
-.bigdiv{
-
-}
 .formdiv{
     margin: 0px 350px;
 
@@ -48,11 +47,11 @@ h2 {
     display: inherit;
 }
 .btn{
-    width: 200px;
-    height: 80px;
-    margin: 0px 350px;
+    width: 150px;
+    height: 50px;
+    margin: 0px 300px;
     overflow: hidden;  
-    box-shadow: inset 0px 1px 0px 0px #ffcc7a;      
+    /* box-shadow: inset 0px 1px 0px 0px #ffcc7a;       */
     border: 1px solid rgb(106, 106, 206);
     border-radius: 10px;
 }
@@ -60,21 +59,53 @@ h2 {
     clear: both;
     display: block;
     position: relative;
-    width: 200px;
-    height: 80px;
+    width: 150px;
+    height: 50px;
+    font: 28px bold;
+    background-color: rgb(97, 129, 197);
+    color: white;
+    text-decoration: underline;
 }
 .loginbtn{
     clear: both;
     display: block;
     position: relative;
-    width: 200px;
-    height: 80px;
+    width: 150px;
+    height: 50px;
+    font: 28px bold;
+    background-color: rgb(97, 129, 197);
+    color: white;
+    text-decoration: underline;
 }
 .signupbtn{
     clear: both;
     display: block;
     position: relative;
-    width: 200px;
-    height: 80px;
+    width: 150px;
+    height: 50px;
+    font: 28px bold;
+    background-color: rgb(97, 129, 197);
+    color: white;
+    text-decoration: underline;
+    text-align: center;
+    padding: 10px 0px;
 }
 
+.profile_img{
+    margin: 30px 85px;
+    width: 250px;
+    height: 250px;
+}
+
+.row2{
+    padding: 8px 36px;
+    margin: 30px 30px;
+    width: 100%;
+    position: relative;
+    clear: both;
+}
+
+.header{
+    text-align: center;
+    color: red;
+}

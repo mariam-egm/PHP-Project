@@ -1,22 +1,19 @@
 <?php
 $error = array();
 if(isset($_POST['submit'])){
-    // extract($_REQUEST);
-    //User name check
-    echo "submit if";
-    if(strlen($_POST["user_name"])> __MAX__NAME__ || strlen($_POST["user_name"])==0)
+
+    if(strlen($_POST["user_name"])> __MAX__USER__NAME__ || strlen($_POST["user_name"])==0)
     {
-        $error[] = "<script type='text/javascript'> alert('Invalid User Name'); </script>";           
+        $error[] = "Invalid User Name";           
     }
 
     // password check
-    if(strlen($_POST["password"]) > $max_password ||
-       strlen($_POST["password"]) < $min_password ||
+    if(strlen($_POST["password"]) > __MAX__PASSWORD__ ||
+       strlen($_POST["password"]) < __MIN__PASSWORD__ ||
        strlen($_POST["password"]) == 0)
     {
-        $error[] = "<script type='text/javascript'> alert(\"Invalid password. It should be between 8 and 16 characters\"); </script>";            
+        $error[] = "Invalid password. It should be between 8 and 16 characters.";            
     }
-    var_dump($error);
     if(sizeof($error) == 0)
     {
         
@@ -24,20 +21,28 @@ if(isset($_POST['submit'])){
             "Username" => $_POST["user_name"],
             "Password" => $_POST["password"]
         );
+
         $login = $user->check_login($new_values);
+
         if ($login) {
-            echo "Successfully logged in";
+            //echo "Successfully logged in";
             $_SESSION["user_id"] = $user->get_user_id($_POST["user_name"]);
             $_SESSION["is_admin"]= $user->is_admin($user->get_user_id($_POST["user_name"]));
-            echo "hello login";
-            echo "<script 'text/javascript'> 
-            alert(\"Successfully logged in\"); 
-            </script>";
+
+            echo "<script type='text/javascript'> alert('Successfully logged in'); </script>";
+            header("Location: http://localhost/PHP-Project/"); 
+
         } else {
-            // Login Failed
-            echo "<script type='text/javascript'> alert(\"Wrong username or password <br/> If you're not a member, Please Sign Up\"); </script>";
+            echo "<script type='text/javascript'> alert('Wrong username or password <br/> If you're not a member, Please Sign Up'); </script>";
         }
     }
+    // else
+    // {
+    //     foreach($error as $val)
+    //     {
+    //         echo "<script type='text/javascript'> alert('hiii'); </script> ";
+    //     }
+    // }
 }
 ?>
 
@@ -65,34 +70,47 @@ if(isset($_POST['submit'])){
                 </div>
             </div>
         </div>
+        <div class="errors">
+            <?php
 
-        <div class="formdiv">
-            <form id="login_form" method="POST" enctype="multipart/form-data">
+                if(sizeof($error) != 0)
+                {
+                    foreach($error as $ay7aga)
+                    {
+                        echo $ay7aga;
+                    }
+                }
 
-                <div class="row">
-                    <label class="username">Username</label><br />
-                    <input id="user_name" class="input" name="user_name" type="text" value="" size="30" /><br />
-
-                </div>
-
-                <div class="row">
-                    <label class="password">Password</label><br />
-                    <input id="password" class="input" name="password" type="password" value="" size="30" /><br />
-
-                </div>
-
-                <div class="btn">
-                    <input class="loginbtn" name="submit" type="image" src="../images/login.jpg" /><br/>
-                </div>
-                <br/>
-            </form>
-            <div class="btn">
-            <?php 
-            echo "<a href= '" . $_SERVER["PHP_SELF"] . "?signup '> 
-            <img  class ='signupbtn' src='../images/registerbtn.png' </a>";
             ?>
-            </div>
         </div>
+        <div class="formdiv">
+
+            <form id="login_form" method="POST" enctype="multipart/form-data" ">
+
+                <div class=" row">
+                <label class="username">Username</label><br />
+                <input id="user_name" class="input" name="user_name" type="text" value="" size="30" /><br />
+
+        </div>
+
+        <div class="row">
+            <label class="password">Password</label><br />
+            <input id="password" class="input" name="password" type="password" value="" size="30" /><br />
+
+        </div>
+
+        <div class="btn">
+            <input class="loginbtn" name="submit" type="submit" value="Log In" />
+            <br />
+        </div>
+        <br />
+        </form>
+        <div class="btn">
+            <?php 
+            echo "<button> <a class='signupbtn' href= '" . $_SERVER["PHP_SELF"] . "?signup '> Register </a> </button>";
+            ?>
+        </div>
+    </div>
     </div>
 </body>
 

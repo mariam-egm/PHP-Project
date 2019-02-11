@@ -8,14 +8,6 @@ define("__MAX__NAME__",30);
 define("__MAX__USER__NAME__",20);
 define("__MAX__PASSWORD__",16);
 define("__MIN__PASSWORD__",8);
-define("__IMG___EXTENTION__","jpg");
+define("__IMG___EXTENSION__","jpg");
 define("__FILE__EXTENSION__","pdf");
-
-
-
-$max_name = 30;
-$max_user_name = 20;
-$max_password = 16;
-$min_password = 8;
-$allowed_image_extension = "jpg";
-$allowed_file_extension = "pdf";
+define("__RECORDS_PER_PAGE__",2);

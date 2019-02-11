@@ -1,0 +1,15 @@
+0- hashing password DOOOOOOOOOOOOOOOOOOOOOOOONNNNNNEEEEEEEEEEEEEEEEEEEEEEE
+a.sending the pictures to a file DOOOOOOOOOOOOOOOOOOOOOOOONNNNNNEEEEEEEEEEEEEEEEEEEEEEE
+b. cv to file DOOOOOOOOOOOOOOOOOOOOOOOONNNNNNEEEEEEEEEEEEEEEEEEEEEEE
+c. from database DOOOOOOOOOOOOOOOOOOOOOOOONNNNNNEEEEEEEEEEEEEEEEEEEEEEE
+d. add to the error that the image and cv have the same name as user name 
+DOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOONNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+
+
+1- log in error
+2- check the db after the registration, send a message that the name already exists
+3- more profile pictures DOOOOOOOOOOOOOOOOOOOOOOOONNNNNNEEEEEEEEEEEEEEEEEEEEEEE
+5- redirect to your profile after registration
+6- add back to the login page in the registration
+7- edit validation
+8- stop the next 
