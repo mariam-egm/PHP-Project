@@ -19,7 +19,7 @@ class MYSQL implements DBHandler{
             return false;
         }
     }
-
+/////////////////////////////////////////DISCONNECT/////////////////////////////////////////////////////
     public function disconnect() {
         if($this->_db_handler){
             mysqli_close($this->_db_handler);
@@ -49,32 +49,11 @@ class MYSQL implements DBHandler{
                         echo "<script type='text/javascript'> alert('User Already Exists'); </script>";
                         return false;
                     }
-                    
-                    // $_handler_results = mysqli_query($this->_db_handler, $sql);
-
-                    // if($_handler_results){
-                    //     $arr_results = array();
-                    //     while($row = mysqli_fetch_array($_handler_results,MYSQLI_ASSOC)){
-                    //         $arr_results[] = array_change_key_case($row);
-                    //     }
-
-                    //     if(sizeof($arr_results) == 0){
-                    //         $new_user = $this->insert_new_user($new_values);
-                    //         if($new_user){
-                    //             $this->disconnect();
-                    //             return true;
-                    //         }else{
-                    //             $this->disconnect();
-                    //             return false;
-                    //         }
-                    //     }
-                    // }else{
-                    //     return false;
-                    // }
                 }
             }
         }
     }
+
 //////////////////////////////////////////////////INSERTION FUNCTION//////////////////////////////////////////////////////
     public function insert_new_user($new_values){
         if(is_array($new_values)){
@@ -142,20 +121,6 @@ class MYSQL implements DBHandler{
         }else{
             return false;
         }
-
-        // $_handler_results = mysqli_query($this->_db_handler,$sql);
-        // $_arr_results = array();
-
-
-        // if ($_handler_results ) {
-        //     while($row = mysqli_fetch_array($_handler_results ,MYSQLI_ASSOC))
-        //     {    
-        //         $_arr_results[] = array_change_key_case($row);
-        //     }
-        //     return $_arr_results[0]["id"];
-        // }else{
-        //     return false;
-        // }
     }
 //////////////////////////////////////////////////////////////////////////////////////////////////////
     //LOGIN PROCESS
@@ -173,26 +138,6 @@ class MYSQL implements DBHandler{
         }else{
             return false;
         }
-        // $_handler_results = mysqli_query($this->_db_handler,$sql);
-        // $_arr_results = array();
-
-        // if ($_handler_results) {
-        //     while($row = mysqli_fetch_array($_handler_results ,MYSQLI_ASSOC))
-        //     {    
-        //         $_arr_results[] = array_change_key_case($row);
-
-        //         if(password_verify($new_values["Password"],$_arr_results[0]["password"]))
-        //         {
-        //             return true;
-        //         }
-        //         else{
-        //             return false;
-        //         }
-        //     }
-        // }else{
-        //     return false;
-        // }
-
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function is_admin($user_id)
@@ -207,22 +152,6 @@ class MYSQL implements DBHandler{
         }else{
             return True;
         }
-        // $_handler_results = mysqli_query($this->_db_handler,$sql);
-        // $_arr_results = array();
-
-        // if ($_handler_results) {
-        //     while($row = mysqli_fetch_array($_handler_results ,MYSQLI_ASSOC))
-        //     {    
-        //         $_arr_results[] = array_change_key_case($row);
-        //     }
-        //     if($_arr_results[0]["is_admin"]==NULL || $_arr_results[0]["is_admin"]== 0)
-        //     {
-        //         return False;
-        //     }else{
-        //         return True;
-        //     }
-
-        // }
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function get_record($id) {
@@ -230,6 +159,12 @@ class MYSQL implements DBHandler{
         $sql = "select * from `$table` where ID = $id";
         return $this->get_results($sql);
     }
+
+    // public function get_record_by_username($username) {
+    //     $table = $this->_table;
+    //     $sql = "select * from `$table` where ID = $username";
+    //     return $this->get_results($sql);
+    // }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function get_data($fields = array(), $start = 0) {
         $table = $this->_table;

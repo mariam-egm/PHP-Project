@@ -46,7 +46,7 @@
             {
                 $error[] = "Invalid extension, only jpg allowed. <br/>";
             }
-            if(($_FILES["img"]["size"]) > 1000000)
+            if(($_FILES["img"]["size"]) > __IMG___SIZE__)
             {
                 $error[] = "Image size exceeded 1M. <br/>";
                 
@@ -70,7 +70,7 @@
             {
                 $error[] = "Invalid extension, only PDF allowed. <br/>";
             }
-            if(($_FILES["cv"]["size"]) > 1000000)
+            if(($_FILES["cv"]["size"]) > __FILE__SIZE__)
             {
                 $error[] = "File size exceeded 1M. <br/>";
                 

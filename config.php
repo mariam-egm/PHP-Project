@@ -9,5 +9,7 @@ define("__MAX__USER__NAME__",20);
 define("__MAX__PASSWORD__",16);
 define("__MIN__PASSWORD__",8);
 define("__IMG___EXTENSION__","jpg");
+define("__IMG___SIZE__",1000000);
 define("__FILE__EXTENSION__","pdf");
+define("__FILE__SIZE__",1000000);
 define("__RECORDS_PER_PAGE__",2);
