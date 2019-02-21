@@ -14,8 +14,7 @@ class MYSQL implements DBHandler{
         if($handler){
             $this->_db_handler = $handler;
             return true;
-        }
-        else{
+        }else{
             echo "<script type='text/javascript'> alert('Error: Could not connect to Database.'); </script>";
             return false;
         }
@@ -46,6 +45,9 @@ class MYSQL implements DBHandler{
                             $this->disconnect();
                             return false;
                         }
+                    }else{
+                        echo "<script type='text/javascript'> alert('User Already Exists'); </script>";
+                        return false;
                     }
                     
                     // $_handler_results = mysqli_query($this->_db_handler, $sql);
@@ -164,25 +166,32 @@ class MYSQL implements DBHandler{
 
         $sql = "select Password from `$table` where Username ='$value'";
 
-        $_handler_results = mysqli_query($this->_db_handler,$sql);
         $_arr_results = array();
-
-        if ($_handler_results) {
-            while($row = mysqli_fetch_array($_handler_results ,MYSQLI_ASSOC))
-            {    
-                $_arr_results[] = array_change_key_case($row);
-
-                if(password_verify($new_values["Password"],$_arr_results[0]["password"]))
-                {
-                    return true;
-                }
-                else{
-                    return false;
-                }
-            }
+        $_arr_results = $this->get_results($sql);
+        if(password_verify($new_values["Password"],$_arr_results[0]["password"])){
+            return true;
         }else{
             return false;
         }
+        // $_handler_results = mysqli_query($this->_db_handler,$sql);
+        // $_arr_results = array();
+
+        // if ($_handler_results) {
+        //     while($row = mysqli_fetch_array($_handler_results ,MYSQLI_ASSOC))
+        //     {    
+        //         $_arr_results[] = array_change_key_case($row);
+
+        //         if(password_verify($new_values["Password"],$_arr_results[0]["password"]))
+        //         {
+        //             return true;
+        //         }
+        //         else{
+        //             return false;
+        //         }
+        //     }
+        // }else{
+        //     return false;
+        // }
 
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -190,23 +199,30 @@ class MYSQL implements DBHandler{
     {
         $table = $this->_table;
         $sql = " select is_Admin from `$table` where ID = '$user_id' ";
-        $_handler_results = mysqli_query($this->_db_handler,$sql);
+        
         $_arr_results = array();
-
-        if ($_handler_results) {
-            while($row = mysqli_fetch_array($_handler_results ,MYSQLI_ASSOC))
-            {    
-                $_arr_results[] = array_change_key_case($row);
-            }
-            // var_dump("from the function",$_arr_results[0]["is_admin"]);
-            if($_arr_results[0]["is_admin"]==NULL || $_arr_results[0]["is_admin"]== 0)
-            {
-                return False;
-            }else{
-                return True;
-            }
-
+        $_arr_results = $this->get_results($sql);
+        if($_arr_results[0]["is_admin"]==NULL || $_arr_results[0]["is_admin"]== 0){
+            return False;
+        }else{
+            return True;
         }
+        // $_handler_results = mysqli_query($this->_db_handler,$sql);
+        // $_arr_results = array();
+
+        // if ($_handler_results) {
+        //     while($row = mysqli_fetch_array($_handler_results ,MYSQLI_ASSOC))
+        //     {    
+        //         $_arr_results[] = array_change_key_case($row);
+        //     }
+        //     if($_arr_results[0]["is_admin"]==NULL || $_arr_results[0]["is_admin"]== 0)
+        //     {
+        //         return False;
+        //     }else{
+        //         return True;
+        //     }
+
+        // }
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function get_record($id) {
@@ -219,7 +235,7 @@ class MYSQL implements DBHandler{
         $table = $this->_table;
         if (empty($fields)) {
             $sql = "select * from `$table`";
-        } else {
+        }else{
             $sql = "select ";
             foreach ($fields as $f) {
                 $sql .= " `$f`, ";
@@ -242,15 +258,8 @@ class MYSQL implements DBHandler{
                 $_arr_results[] = array_change_key_case($row);
             }
             return $_arr_results;
-            
-        } else {
+        }else{
             return false;
         }
     }
-
-
-
-
-
-
 }

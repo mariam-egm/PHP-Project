@@ -1,4 +1,4 @@
 <?php
         session_destroy();
-        header("Location: http://localhost/PHP-Project/"); 
+        header("Location: http://localhost:8080/PHP-Project/"); 
 ?>

@@ -29,20 +29,14 @@ if(isset($_POST['submit'])){
             $_SESSION["user_id"] = $user->get_user_id($_POST["user_name"]);
             $_SESSION["is_admin"]= $user->is_admin($user->get_user_id($_POST["user_name"]));
 
-            echo "<script type='text/javascript'> alert('Successfully logged in'); </script>";
-            header("Location: http://localhost/PHP-Project/"); 
+            echo "Successfully logged in";
+            header("Location: http://localhost:8080/PHP-Project/"); 
 
         } else {
-            echo "<script type='text/javascript'> alert('Wrong username or password <br/> If you're not a member, Please Sign Up'); </script>";
+            // echo "<script type='text/javascript'> alert('Wrong username or password <br/> If you're not a member, Please Sign Up'); </script>";
+            echo "Login Unsuccessfull";
         }
     }
-    // else
-    // {
-    //     foreach($error as $val)
-    //     {
-    //         echo "<script type='text/javascript'> alert('hiii'); </script> ";
-    //     }
-    // }
 }
 ?>
 
@@ -75,9 +69,9 @@ if(isset($_POST['submit'])){
 
                 if(sizeof($error) != 0)
                 {
-                    foreach($error as $ay7aga)
+                    foreach($error as $val)
                     {
-                        echo $ay7aga;
+                        echo "<p color='red' align='center'>".$val."</p>";
                     }
                 }
 

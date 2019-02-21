@@ -27,7 +27,6 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["is_admin"]) && $_SESSION["is
     {
         require_once("Views/admin/users.php");
     }
-    //
     if(isset($_GET["users"]))
     {
         require_once("Views/admin/users.php");    
@@ -35,13 +34,11 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["is_admin"]) && $_SESSION["is
 
 } elseif (isset($_SESSION["user_id"]) && isset($_SESSION["is_admin"]) && $_SESSION["is_admin"] === false) {
     //members views should be required here
-    //echo "if condition two";
     if(isset($_GET["edit"]))
     {
         require_once("Views/member/edit_my_profile.php");     
     }else
     {
-        //echo "hello";
         require_once("Views/member/view_my_profile.php");
     }
 } else {
@@ -51,7 +48,6 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["is_admin"]) && $_SESSION["is
         require_once("Views/public/signup.php");
     }
     else{
-        // echo "hello";
         require_once("Views/public/login.php");
     }
 }

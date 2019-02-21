@@ -76,11 +76,9 @@ if(isset($_POST["submit"]))
     {
         if(isset($_POST["user_name"]) && !empty($_POST["user_name"]))
         {
-            // echo"here is the username if1";
             $p_user_name = $_POST["user_name"];
         }else
         {
-            // echo"here is the username if2";
             $p_user_name=$user_name;
         }
         if(isset( $_POST["password"]) && !empty($_POST["password"]))
@@ -104,6 +102,13 @@ if(isset($_POST["submit"]))
         {
             $p_email = $email;
         }
+        // if(isset( $_POST["job"]) && !empty($_POST["job"]))
+        // {
+        //     $p_job = $_POST["job"];
+        // }else
+        // {
+        //     $p_job = $job;
+        // }
         if(isset( $_FILES["img"]["name"]) && !empty($_FILES["img"]["name"]) )
         {
             $p_img = $_FILES["img"]["name"];
@@ -125,11 +130,10 @@ if(isset($_POST["submit"]))
             "Password" => $p_password,
             "Name" => $p_name,
             "Email" => $p_email,
+            "Job" => $p_job,
             "Image" => $p_img,
             "CV" => $p_cv
-
         );
-        // echo "before call";    
         $is_edited = $user->edit_profile($new_values,$id);
         if ($is_edited) {
             // Registration Success
@@ -139,18 +143,16 @@ if(isset($_POST["submit"]))
                 // Registration Failed
                 echo "<script type='text/javascript'> alert(\"Editing Failed. Please Try again\"); </script>";
             }
-
-        // echo "Thank you for contacting us <br/>";
-        header("Location: http://localhost/PHP-Project/");
+        header("Location: http://localhost:8080/PHP-Project/");
         
     }
-    else
-    {
-        foreach($error as $val)
-        {
-            echo "<script type='text/javascript'> alert ('$val'); </script> <br/>";
-        }
-    }
+    // else
+    // {
+    //     foreach($error as $val)
+    //     {
+    //         echo "<script type='text/javascript'> alert ('$val'); </script> <br/>";
+    //     }
+    // }
 
 }
 ?>
@@ -161,6 +163,7 @@ if(isset($_POST["submit"]))
 <head>
     <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
     <div id="after_submit">
     </div>
@@ -179,14 +182,28 @@ if(isset($_POST["submit"]))
                 </div>
             </div>
         </div>
+        <div class="errors">
+            <?php
 
+                if(sizeof($error) != 0)
+                {
+                    foreach($error as $val)
+                    {
+                        echo "<p color='red' align='center'>".$val."</p>";
+                    }
+                }
+
+            ?>
+        </div>
         <div class="formdiv">
             <form id="signup_form" method="POST" enctype="multipart/form-data">
 
                 <!-- USERNAME -->
                 <div class="row">
                     <label class="username">User Name:</label><br />
-                    <input id="user_name" class="input" placeholder="<?php echo"$user_name"?>" name="user_name" type="text" value="<?php echo (isset($_POST["
+                    <input id="user_name" class="input" placeholder="<?php echo" $user_name"?>" name="user_name"
+                    type="text" value="
+                    <?php echo (isset($_POST["
                         user_name"]))? $_POST["user_name"]:"" ?>"
                     size="30" /><br />
 
@@ -209,7 +226,8 @@ if(isset($_POST["submit"]))
                 <!-- NAME -->
                 <div class="row">
                     <label class="name">Your Full Name:</label><br />
-                    <input type="text" id="name" class="input" placeholder="<?php echo"$name"?>" name="name" value="<?php echo (isset($_POST["
+                    <input type="text" id="name" class="input" placeholder="<?php echo" $name"?>" name="name" value="
+                    <?php echo (isset($_POST["
                         name"]))? $_POST["name"]:"" ?>" >
                 </div>
 
@@ -217,7 +235,9 @@ if(isset($_POST["submit"]))
 
                 <div class="row">
                     <label class="email">Your Email:</label><br />
-                    <input id="email" class="input" placeholder="<?php echo"$email"?>" name="email" type="text" value="<?php echo (isset($_POST["
+                    <input id="email" class="input" placeholder="<?php echo" $email"?>" name="email" type="text"
+                    value="
+                    <?php echo (isset($_POST["
                         email"]))? $_POST["email"]:"" ?>"
                     size="30" /><br />
                 </div>
@@ -225,7 +245,8 @@ if(isset($_POST["submit"]))
                 <!-- JOB -->
                 <div class="row">
                     <label class="job">Your Job:</label><br />
-                    <input type="text" id="job" class="input" placeholder="<?php echo"$job"?>" name="job" value="<?php echo (isset($_POST["
+                    <input type="text" id="job" class="input" placeholder="<?php echo" $job"?>" name="job" value="
+                    <?php echo (isset($_POST["
                         job"]))? $_POST["job"]:"" ?>" >
                 </div>
 
@@ -235,7 +256,7 @@ if(isset($_POST["submit"]))
                     <label class="img">Upload your Image:</label><br />
                     <input type="file" class="img" name="img"><br />
                     <label class="sub-label">
-                        Attached image file must be PNG file.  Max File size is 1MB.
+                        Attached image file must be PNG file. Max File size is 1MB.
                     </label>
                 </div>
 
@@ -244,13 +265,13 @@ if(isset($_POST["submit"]))
                     <label class="cv">Upload your CV:</label><br />
                     <input type="file" class="cv" name="cv"><br />
                     <label class="sub-label">
-                        Attached file must be PDF file.  Max File size is 1MB.
+                        Attached file must be PDF file. Max File size is 1MB.
                     </label>
                     <br /><br />
                 </div>
 
                 <div class="btn">
-                    <input class="submitbtn" name="submit" type="submit" value="Submit"/>
+                    <input class="submitbtn" name="submit" type="submit" value="Submit" />
                 </div>
 
             </form>

@@ -8,8 +8,6 @@ $email = $current_user[0]['email'];
 $img = $current_user[0]['image']; 
 $cv = $current_user[0]['cv'];
 $job = $current_user[0]['job'];
-var_dump($img);
-// exit();
 
 ?>
 

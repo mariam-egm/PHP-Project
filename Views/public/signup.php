@@ -111,16 +111,9 @@
                     // Registration Failed
                     echo "Registration Failed. Please Try again";
                 }
-            header("Location: http://localhost/PHP-Project/");
+            header("Location: http://localhost:8080/PHP-Project/");
             
         }
-        // else
-        // {
-        //     foreach($error as $val)
-        //     {
-        //         echo "<script type='text/javascript'> alert ('$val'); </script> <br/>";
-        //     }
-        // }
     }
 ?>
 
@@ -155,7 +148,7 @@
                 {
                     foreach($error as $val)
                     {
-                        echo $val;
+                        echo "<p color='red' align='center'>".$val."</p>";
                     }
                 }
 
